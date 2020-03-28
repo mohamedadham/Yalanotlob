@@ -6,15 +6,16 @@
 #
 default: &default
   adapter: mysql2
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  database: yalanotlob
+  username: dalia
+  password: 123
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
-  database: blog
-  username: root
-  password: 123456
+  # database: db/development.sqlite3
+  
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

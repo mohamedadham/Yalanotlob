@@ -7,8 +7,8 @@
 default: &default
   adapter: mysql2
   database: yalanotlob
-  username: root
-  password:
+  username: dalia
+  password: 123
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 

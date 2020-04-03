@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
     def update
         @notice=""
+        if @order.status == "waiting"
         if params[:todo] == "finish"   
           @order.status="Finished"
           @notice = "Order is finsihed."
@@ -25,6 +26,9 @@ class OrdersController < ApplicationController
             format.json { render json: @order.errors, status: :unprocessable_entity }
           end
         end
+      else
+        format.html { redirect_to "/orders",  notice: "Can not update the order" }
+      end
       end
 
     private

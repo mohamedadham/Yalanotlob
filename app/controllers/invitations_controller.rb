@@ -5,36 +5,36 @@ class InvitationsController < ApplicationController
 
 
   def update
-   
     @invitation = Invitation.find params[:id]
-    @title = 'Shattered View: A Novel on Rails'
     @notice=""
-    if params[:commit] == "Accept"    
+    if params[:commit] == "Accept"   
       @invitation.status="accepted"
       @notice = 'Invitation was successfully accepted.' 
-    else
+    if params[:commit] == "Reject"   
       @invitation.status="rejected"
       @notice = 'Invitation was rejected.' 
     end
+
     respond_to do |format|
-      if @invitation.update(food_item_params)
-        format.html { redirect_to notifications_path, notice: @notice,:locals => {:title => 'Some text'}}
+      if @invitation.update(invitations_params)
+        format.html { redirect_to notifications_path, notice: @notice}
         format.json { render :show, status: :ok, location: @notification }
       else
         format.html { render :edit }
         format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
-    @title="hiii"
+    
+ end
+end
+ private
+
+ def set_invitation
+  @invitation = Invitation.find(params[:id])
  end
 
- private
- def set_invitation
-  @invitation = Invitation.find params[:id]
-end
- def food_item_params
-  @invitation = Invitation.find params[:id]
-
+ def invitations_params
    params.permit(:id) 
  end
+
 end

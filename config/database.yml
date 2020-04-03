@@ -9,8 +9,8 @@ default: &default
   database: yalanotlob
   username: dalia
   password: 123
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # timeout: 5000
 
 development:
   <<: *default

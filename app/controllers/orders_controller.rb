@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
     def create
         users = params['id'];
         order = Order.new;
-        order.user_id = 1;
+        order.user_id = current_user.id;
         order.order_for = params['order_for'];
         order.restaurant_name = params['restaurant_name'];
         

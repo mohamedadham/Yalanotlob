@@ -25,7 +25,7 @@ function filterFunction() {
                     let card = document.createElement('div');
                     card.setAttribute('class', `card w-50 ${a.getAttribute('id')}`);
                     let img = document.createElement('img');
-                    img.setAttribute('src', 'https://via.placeholder.com/150C/O https://placeholder.com/');
+                    img.setAttribute('src', '/assets/images/user.png');
                     img.setAttribute('class', 'card-img-top');
                     img.setAttribute('alt', '...');
                     let card_body = document.createElement('div');

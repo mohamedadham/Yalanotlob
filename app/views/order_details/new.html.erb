@@ -1,0 +1,36 @@
+
+<h1> Order Details</h1> 
+<%# new_order_detail_path %>
+<%= form_with(url: "/order_details",  method: "post") do %>
+    <div class="form-group">
+      <%= text_field_tag(:item,nil, placeholder: "Item....", class: "form-control" ) %>
+    </div>
+    <div class="form-group">
+      <%= text_field_tag(:amount,nil, placeholder: "Amount....", class: "form-control" ) %>
+    </div>
+    <div class="form-group">
+      <%= text_field_tag(:price,nil, placeholder: "price....", class: "form-control" ) %>
+    </div>
+    <div class="form-group">
+        <%= text_area_tag(:comment, nil,placeholder: "Any Comments?", rows: 5, class: "form-control") %>
+    </div>
+    <%= submit_tag( "Add", class: "btn btn-success btn-block") %>
+<% end %>
+<br>
+
+<% if @ordersDetails.any? %>
+  <% @ordersDetails.each do |order| %>
+      <div class="card md-12 md-3">
+          <div class="card-body">
+              <h5 class="card-title"><%= order.item %></h5>
+          </div>
+      </div>
+      <br>
+  <% end %>
+<% else %>
+    <div class="card md-12 md-3">
+        <div class="card-header">
+            No Ccomments
+        </div>
+    </div>
+<% end %>

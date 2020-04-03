@@ -1,0 +1,14 @@
+<div class="media-heading">
+
+  <%= link_to notification.actor.name, main_app.user_path(notification.actor) %> responed to your request
+  <%= link_to "order", main_app.order_path(notification.user) %> <span> ( <%= notification.second_target.status %> )</span>
+<% unless  notification.second_target.status === "accepted" || notification.second_target.status === "rejected" %>
+  <%= form_tag(main_app.invitation_path(notification.second_target.id), :method => "patch") do |f| %>
+  <%= submit_tag("Accept") %>
+  <% end %>
+
+  <%= form_tag(main_app.invitation_path(notification.second_target.id), :method => "patch") do |f| %>
+  <%= submit_tag("Reject") %>
+  <% end %>
+<% end %>
+</div>

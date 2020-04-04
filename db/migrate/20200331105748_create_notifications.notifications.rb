@@ -4,7 +4,7 @@ class CreateNotifications < ActiveRecord::Migration[5.0]
     create_table :notifications do |t|
       t.integer :user_id, null: false
       t.integer :actor_id
-      t.string :notify_type, null: false
+      t.string :notify_type, null: false, :limit => 150
       t.string :target_type
       t.integer :target_id
       t.string :second_target_type

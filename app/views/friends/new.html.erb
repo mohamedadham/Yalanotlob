@@ -1,0 +1,36 @@
+<div class="col">
+    <div class="d-block form-group dropdown" style="display: block">
+        <label for="friendControlInput1"><h1>Friends</h1></label>
+        <div id="myDropdown" class="d-block dropdown-content show row" style="display: block">
+            <%= form_for Friend.new, url: orders_path, :multipart => true, local: true do |form| %>
+                <input type="text" placeholder="Your friend email..." id="myInput" onkeyup="searchByMail()" style="width: 62rem">
+                <%= form.submit type:'submit', class:'btn btn-primary', value: "Add friend"%>
+            <%end%>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <hr>
+    <div class="col card">
+        <h3>Friends list</h3>
+        <div id="friends" class="row">
+            <%for friend in @friends%>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                        <img src="/assets/images/user.png" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=friend.name%></h5>
+                            <p class="card-text"><%=friend.email%></p>
+                            <a href="#" class="btn btn-danger">Unfriend</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <%end%>
+        <div>
+        
+    <div>
+</div>

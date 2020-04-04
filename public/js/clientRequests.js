@@ -61,3 +61,14 @@ function filterFunction() {
     });
     
 } 
+
+function searchByMail(){
+    var input;
+    input = document.getElementById("myInput");
+    div = document.getElementById("myDropdown");
+    friends = document.getElementById('friends');
+
+    $.get( `/friends/search/${input.value}`, function(data) {
+
+    })
+}

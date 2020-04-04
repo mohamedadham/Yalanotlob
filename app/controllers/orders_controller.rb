@@ -1,5 +1,29 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+    before_action :set_order, only: [:show, :edit, :update, :destroy]
+
+    def new
+        
+    end
+
+    def create
+        users = params['id'];
+        order = Order.new;
+        order.user_id = current_user.id;
+        order.order_for = params['order_for'];
+        order.restaurant_name = params['restaurant_name'];
+        
+        fileName = upload_image params[:order]
+
+        if(fileName)
+            order.menu_image = fileName
+        end
+
+        order.save();
+
+        users.each { |user| order.invitations.create([{ user_id: user }]) }
+        
+        render :new
+    end
 
     def index
         @invitations= Invitation.where(:user_id => current_user.id, :status => "accepted")        

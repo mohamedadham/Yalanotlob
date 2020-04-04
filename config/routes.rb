@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get '/friends/search/:input', to: 'friends#search'
   get 'invitations/update'
   devise_for :users
   get 'invitation/update'

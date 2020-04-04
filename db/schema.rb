@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_03_31_105748) do
   create_table "notifications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "actor_id"
-    t.string "notify_type", null: false
+    t.string "notify_type", limit: 150, null: false
     t.string "target_type"
     t.integer "target_id"
     t.string "second_target_type"

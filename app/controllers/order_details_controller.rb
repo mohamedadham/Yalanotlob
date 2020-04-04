@@ -6,51 +6,40 @@ class OrderDetailsController < ApplicationController
     end
 
     def show
-        return @post = Post.find(params[:id]), @post.comments
+        p params
     end
 
     def new
         index()
+        @orderDetails = OrderDetail.new
+
     end
 
     def create
-        # p params
-        p "hello"
         @invitation = current_user.invitations.first
         @orderDetails = OrderDetail.new
         @orderDetails.order_id = @invitation.order_id
         @orderDetails.user_id = current_user.id
-        @orderDetails.item = params[:item]
-        @orderDetails.amount = params[:amount]
-        @orderDetails.price = params[:price]
-        @orderDetails.comment = params[:comment]
-        
+        @orderDetails.item = params[:order_detail][:item]
+        @orderDetails.amount = params[:order_detail][:amount]
+        @orderDetails.price = params[:order_detail][:price]
+        @orderDetails.comment = params[:order_detail][:comment]
+ 
         @orderDetails.save
-        # @orderDetails = current_user.orderDetail.create(details_params)
-        redirect_to new_order_detail_path
-    end
-
-    def edit
-        @post = Post.find(params[:id])
-    end
-
-    def update
-        @post = Post.find(params[:id])
-        if @post.update(post_params)
-            redirect_to :posts
-        else 
-            render :edit
-        end  
+        # @orderDetails = Order.find(@invitation.order_id).ordersexitDetails.create(details_params)
+        index()
+        render :new 
     end
 
     def destroy
-        @post = Post.find(params[:id])
-        @post.delete
-        redirect_to :posts
+        @orderDetails = OrderDetail.find(params[:id])
+        @orderDetails.delete
+        redirect_to new_order_detail_path
     end
+
     private
-    # def details_params
-    #   params.permit(:item, :amount, :price, :comment)
-    # end
+    def details_params
+      params.require(:order_detail).permit(:item, :amount, :price, :comment)
+    end
     
 end

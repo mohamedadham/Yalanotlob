@@ -1,3 +1,12 @@
+<% if(@order.errors.any?) %>
+<div class="alert alert-danger">
+  <ul>
+  <% @order.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
+<% end %>
 <%= form_for Order.new, url: orders_path, :multipart => true, local: true do |form| %>
 <div class="row">
 

@@ -1,0 +1,14 @@
+
+<div class="col-md-6" >
+<h2> Latest Orders</h2>
+ <% @orders.each do |order| %>       
+            <%= link_to order.order_for , main_app.order_path(order)  %> on <%= order.created_at%>
+            <br>
+ <% end %>
+    <% @invitations.each do |invitation| %>
+        <% if invitation.order.status == "waiting" %>
+           <%= link_to invitation.order.order_for , main_app.order_path(invitation.order)  %> on <%=invitation.order.created_at %>
+        <% end %>
+    <% end %>
+</div>
+

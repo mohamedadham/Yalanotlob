@@ -2,7 +2,20 @@ class OrderDetailsController < ApplicationController
     def index
         @invitation = current_user.invitations.first
         @ordersDetails = OrderDetail.where(order_id: @invitation.order_id)
-        return @ordersDetails
+
+        @acceptedUsers = []
+        Invitation.where(order_id: @invitation.order_id, status: "accepted").find_each do |invitation|
+            @acceptedUsers << invitation.user 
+        end        
+        @waitingUsers = []
+        Invitation.where(order_id: @invitation.order_id, :status => "waiting").find_each do |invitation|
+            @waitingUsers << invitation.user
+        end    
+
+        @acceptedCount = @acceptedUser.count
+        @waitingCount = @waitingUser.count
+
+        return @ordersDetails, @acceptedCount, @acceptedUser, @waitingCount, @waitingUser
     end
 
     def show
@@ -26,7 +39,6 @@ class OrderDetailsController < ApplicationController
         @orderDetails.comment = params[:order_detail][:comment]
  
         @orderDetails.save
-        # @orderDetails = Order.find(@invitation.order_id).ordersexitDetails.create(details_params)
         index()
         render :new 
     end

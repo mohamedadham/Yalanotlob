@@ -1,11 +1,19 @@
 <div class="col">
     <div class="d-block form-group dropdown" style="display: block">
         <label for="friendControlInput1"><h1>Friends</h1></label>
+        <% if flash[:success] %>
+            <div class="alert alert-success" role="alert"><%=flash[:success]%></div>
+        <% end %>
+        <% if flash[:error] %>
+            <div class="alert alert-danger" role="alert"><%=flash[:error]%></div>
+        <% end %>
         <div id="myDropdown" class="d-block dropdown-content show row" style="display: block">
-            <%= form_for Friend.new, url: orders_path, :multipart => true, local: true do |form| %>
-                <input type="text" placeholder="Your friend email..." id="myInput" onkeyup="searchByMail()" style="width: 62rem">
+            <%= form_for Friend.new, url: friends_path, local: true do |form| %>
+                <input name="email" type="text" placeholder="Your friend email..." id="myInput" onkeyup="searchByMail()" style="width: 62rem">
                 <%= form.submit type:'submit', class:'btn btn-primary', value: "Add friend"%>
             <%end%>
+            <div id="results">
+            </div>
         </div>
     </div>
     <hr>
@@ -24,7 +32,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=friend.name%></h5>
                             <p class="card-text"><%=friend.email%></p>
-                            <a href="#" class="btn btn-danger">Unfriend</a>
+                            <%=link_to("Unfriend", friend_path(friend.id), method: :delete, class: "btn btn-danger")%>
                         </div>
                         </div>
                     </div>

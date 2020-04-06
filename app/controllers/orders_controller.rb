@@ -22,7 +22,8 @@ class OrdersController < ApplicationController
           users.each { |user| @order.invitations.create([{ user_id: user }]) }
         end
         
-        render :new
+        message = "Order submitted successfully"
+        redirect_to "/orders/new", :flash => { :error => message }
     end
 
     def index

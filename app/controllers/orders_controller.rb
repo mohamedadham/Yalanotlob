@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
         @order.user_id = current_user.id;
         @order.order_for = params['order_for'];
         @order.restaurant_name = params['restaurant_name'];
-        
+        @order.status = "waiting";
         fileName = upload_image params[:order]
 
         if(fileName)
@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
             format.html { redirect_to "/orders",  notice: @notice }
             format.json { render :show, status: :ok, location: @order }
           else
-            format.html { render :edit }
+            format.html { redirect_to "/orders",  notice: "Can not update the order" }
             format.json { render json: @order.errors, status: :unprocessable_entity }
           end
         end

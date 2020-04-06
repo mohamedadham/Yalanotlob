@@ -9,15 +9,10 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   database: yalanotlob
-<<<<<<< HEAD
-  username: root
-  password: 123456
-=======
   host: 127.0.0.1
   username: dalia
   password: 123
   encoding: utf8
->>>>>>> afa032cdb52715c1f66af74e9c7571a1d824ae34
   # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # timeout: 5000
 

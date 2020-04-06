@@ -1,37 +1,37 @@
 class OrderDetailsController < ApplicationController
     def index
-        @invitation = current_user.invitations.first
-        @ordersDetails = OrderDetail.where(order_id: @invitation.order_id)
+        @ordersDetails = OrderDetail.where(order_id: $orderId)
 
         @acceptedUsers = []
-        Invitation.where(order_id: @invitation.order_id, status: "accepted").find_each do |invitation|
+        Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
             @acceptedUsers << invitation.user 
         end        
         @waitingUsers = []
-        Invitation.where(order_id: @invitation.order_id, :status => "waiting").find_each do |invitation|
+        Invitation.where(order_id: $orderId, :status => "waiting").find_each do |invitation|
             @waitingUsers << invitation.user
         end    
+    
+        @acceptedCount = @acceptedUsers.count
+        @waitingCount = @waitingUsers.count
 
-        @acceptedCount = @acceptedUser.count
-        @waitingCount = @waitingUser.count
-
-        return @ordersDetails, @acceptedCount, @acceptedUser, @waitingCount, @waitingUser
+        return @ordersDetails, @acceptedCount, @acceptedUsers, @waitingCount, @waitingUsers
     end
 
     def show
-        p params
+        $orderId = params[:id]
+        redirect_to new_order_detail_path
     end
 
     def new
         index()
+
         @orderDetails = OrderDetail.new
 
     end
 
     def create
-        @invitation = current_user.invitations.first
         @orderDetails = OrderDetail.new
-        @orderDetails.order_id = @invitation.order_id
+        @orderDetails.order_id = $orderId
         @orderDetails.user_id = current_user.id
         @orderDetails.item = params[:order_detail][:item]
         @orderDetails.amount = params[:order_detail][:amount]

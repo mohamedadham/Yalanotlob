@@ -61,3 +61,29 @@ function filterFunction() {
     });
     
 } 
+
+function searchByMail(){
+    var input;
+    input = document.getElementById("myInput");
+    div = document.getElementById("myDropdown");
+    results = document.getElementById('results');
+    results.classList.remove('d-none');
+
+    $.get( `/friends/search-by-mail/${input.value}`, function(data) {
+        a = div.getElementsByTagName("a");
+        results.innerHTML = "";
+        console.log(data.message[0]);
+        for (i = 0; i < data.message.length; i++) {
+            let a = document.createElement('a');
+            a.innerHTML = data.message[i][1];
+            a.setAttribute("class", "result");
+            a.setAttribute("id", data.message[i][0]);
+            inputVal = data.message[i][4];
+            a.addEventListener("click", () => {
+                input.value = inputVal;
+                results.setAttribute("class", "d-none");
+            })
+            results.append(a);
+        }
+    })
+}

@@ -2,27 +2,28 @@ class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy]
 
     def new
-        
+        @order = Order.new
     end
 
     def create
         users = params['id'];
-        order = Order.new;
-        order.user_id = current_user.id;
-        order.order_for = params['order_for'];
-        order.restaurant_name = params['restaurant_name'];
+        @order = Order.new;
+        @order.user_id = current_user.id;
+        @order.order_for = params['order_for'];
+        @order.restaurant_name = params['restaurant_name'];
         
         fileName = upload_image params[:order]
 
         if(fileName)
-            order.menu_image = fileName
+            @order.menu_image = fileName
         end
 
-        order.save();
-
-        users.each { |user| order.invitations.create([{ user_id: user }]) }
+        if(@order.save())
+          users.each { |user| @order.invitations.create([{ user_id: user }]) }
+        end
         
-        render :new
+        message = "Order submitted successfully"
+        redirect_to "/orders/new", :flash => { :error => message }
     end
 
     def index
@@ -32,6 +33,7 @@ class OrdersController < ApplicationController
 
     def update
         @notice=""
+        if @order.status == "waiting"
         if params[:todo] == "finish"   
           @order.status="Finished"
           @notice = "Order is finsihed."
@@ -49,6 +51,9 @@ class OrdersController < ApplicationController
             format.json { render json: @order.errors, status: :unprocessable_entity }
           end
         end
+      else
+        format.html { redirect_to "/orders",  notice: "Can not update the order" }
+      end
       end
 
     private

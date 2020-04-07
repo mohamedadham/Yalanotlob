@@ -16,6 +16,7 @@ class OrderDetailsController < ApplicationController
 
     #     return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
     # end
+   
 
     def get_details
         @ordersDetails = OrderDetail.where(order_id: $orderId, user_id: current_user.id)

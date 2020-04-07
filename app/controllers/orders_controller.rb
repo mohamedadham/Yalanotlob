@@ -59,7 +59,9 @@ class OrdersController < ApplicationController
         format.html { redirect_to "/orders",  notice: "Can not update the order" }
       end
       end
-
+    def show
+            
+      end
     
       private
 
@@ -71,4 +73,5 @@ class OrdersController < ApplicationController
             params.permit(:id)            
         end
     
-end
+ 
+ end

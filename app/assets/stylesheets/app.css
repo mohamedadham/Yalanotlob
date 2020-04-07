@@ -47,3 +47,17 @@
 .col-sm{
     width: 50% !important;
 }
+td img{
+    width: 60%;
+    margin-left: 20%;
+    
+}
+
+table th{
+    text-align: center;
+}
+.action-btns{
+    display: flex;
+    justify-content: space-between;
+}
+

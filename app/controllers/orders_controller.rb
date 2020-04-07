@@ -19,7 +19,9 @@ class OrdersController < ApplicationController
         end
 
         if(@order.save())
-          users.each { |user| @order.invitations.create([{ user_id: user }]) }
+          if(users != nil)
+            users.each { |user| @order.invitations.create([{ user_id: user }]) }
+          end
         end
         
         message = "Order submitted successfully"

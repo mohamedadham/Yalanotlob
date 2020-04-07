@@ -1,39 +1,28 @@
 
-<h1> Order Details</h1> 
-<div>
-  <% if @allCount != 0 %>
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  <%= @allCount%> Friends Invited
-</button>
+<h2> Order Details</h2> 
+  <% if @allCount != 0%> 
+    <h5><span class="badge badge-primary badge-pill"><%= @allCount%></span> Friends Invited</h5>
+    <ul>
+      <% @allUsers.each do |user| %>
+        <li><%= user.name%> 
+            <button type="button" class="btn btn-danger btn-sm">X</button>
+        </li>
+      <% end %>
+    </ul>
+    <h5><span class="badge badge-primary badge-pill"><%= @acceptedCount%></span> Friends Joined</h5>
+    <ul>
+      <% if @acceptedCount != 0 %>
+        <% @acceptedUsers.each do |user|%>
+          <li><%= user.name%>
+            <button type="button" class="btn btn-danger btn-sm">X</button>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end%>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <% end %> 
-</div> 
 
-  
-  
-
-<h1> Add new detail</h1> 
+<h2> Add new detail</h2> 
 <%# List all Order Details %>
 <% if @ordersDetails.any? %>
   <table class="table table-striped h5">
@@ -56,8 +45,8 @@
             <td><%= order.comment %></td>
             <td> <%= link_to 'delete', order, class: "btn btn-danger", method: :delete%> </td>
           </tr>
-      <% end %>
-    </tbody>
+        <% end %>
+      </tbody>
   </table>
 <% else %>
   

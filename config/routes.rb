@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :invitations
   resources :group_members
   resources :order_details, :except => [:index]
-  resources :orders
+  resources :orders, :except => [:show, :edit]
   resources :friends
   resources :groups
   resources :users

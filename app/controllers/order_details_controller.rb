@@ -1,29 +1,48 @@
 class OrderDetailsController < ApplicationController
-    def index
-        @ordersDetails = OrderDetail.where(order_id: $orderId)
+    # def index
+    #     @ordersDetails = OrderDetail.where(order_id: $orderId, user_id: current_user.id)
+
+    #     @acceptedUsers = []
+    #     Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
+    #         @acceptedUsers << invitation.user 
+    #     end        
+    #     @allUsers = []
+    #     Invitation.where(order_id: $orderId).find_each do |invitation|
+    #         @allUsers << invitation.user
+    #     end    
+    
+    #     @acceptedCount = @acceptedUsers.count
+    #     @allCount = @allUsers.count
+
+    #     return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
+    # end
+   
+
+    def get_details
+        @ordersDetails = OrderDetail.where(order_id: $orderId, user_id: current_user.id)
 
         @acceptedUsers = []
         Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
             @acceptedUsers << invitation.user 
         end        
-        @waitingUsers = []
-        Invitation.where(order_id: $orderId, :status => "waiting").find_each do |invitation|
-            @waitingUsers << invitation.user
+        @allUsers = []
+        Invitation.where(order_id: $orderId).find_each do |invitation|
+            @allUsers << invitation.user
         end    
     
         @acceptedCount = @acceptedUsers.count
-        @waitingCount = @waitingUsers.count
+        @allCount = @allUsers.count
 
-        return @ordersDetails, @acceptedCount, @acceptedUsers, @waitingCount, @waitingUsers
+        return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
     end
-
+    
     def show
         $orderId = params[:id]
         redirect_to new_order_detail_path
     end
 
     def new
-        index()
+        get_details()
 
         @orderDetails = OrderDetail.new
 
@@ -38,9 +57,13 @@ class OrderDetailsController < ApplicationController
         @orderDetails.price = params[:order_detail][:price]
         @orderDetails.comment = params[:order_detail][:comment]
  
-        @orderDetails.save
-        index()
-        render :new 
+        if(@orderDetails.save)
+            get_details()
+            redirect_to new_order_detail_path 
+        else    
+            get_details()
+            render :new
+        end    
     end
 
     def destroy

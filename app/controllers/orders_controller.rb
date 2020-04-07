@@ -49,7 +49,9 @@ class OrdersController < ApplicationController
           @notice = "Order is finsihed."
         end
         if params[:todo] == "cancel"   
-          @order.status="Canceled"
+          @order.status="Canceled"          
+          @order.invitations.each { |invitation| invitation.destroy }
+          @order.ordersDetails.each { |orderDetails| orderDetails.destroy }
           @notice = 'Order was canceled.' 
         end
         respond_to do |format|
@@ -65,8 +67,11 @@ class OrdersController < ApplicationController
         format.html { redirect_to "/orders",  notice: "Can not update the order" }
       end
       end
-
-    private
+    def show
+            
+      end
+    
+      private
 
         def set_order
              @order = Order.find(params[:id])
@@ -76,4 +81,5 @@ class OrdersController < ApplicationController
             params.permit(:id)            
         end
     
-end
+ 
+ end

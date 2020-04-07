@@ -1,6 +1,7 @@
 <div class="media-heading">
-
-  <%= link_to notification.actor.name, main_app.user_path(notification.actor)  %> 
+  <% if notification.second_target != nil %>
+  <p> <%= notification.actor.name %> </p>
+  
   <%=
   if notification.second_target.status === "accepted"
     "joined your "
@@ -10,3 +11,4 @@
   %>
   <%= link_to "order", main_app.order_path(notification.user) %> 
 </div>
+ <% end %>

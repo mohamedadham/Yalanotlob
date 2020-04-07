@@ -1,0 +1,63 @@
+.table-container{
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 80vh;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+}
+.center{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    height: 90vh;
+}
+.edit-headline{
+    margin-bottom: 6vh;
+    font-size: 42px;
+}
+.btn{
+    margin-top: 20px;
+}
+.new_order{
+    width: 100vw;
+}
+.row{
+    width: 100%;
+}
+#friends{
+    margin-top: 20px;
+    margin: 5px;
+    padding: 10px;
+}
+.friend{
+    margin: 2px;
+}
+.group{
+    width: 50vw;
+    display: flex;
+    align-items: center;    
+}
+.group p{
+    width: 30%;
+}
+.group a{
+    margin: 5px;
+}
+.col-sm{
+    width: 50% !important;
+}
+td img{
+    width: 60%;
+    margin-left: 20%;
+    
+}
+
+table th{
+    text-align: center;
+}
+.action-btns{
+    display: flex;
+    justify-content: space-between;
+}
+

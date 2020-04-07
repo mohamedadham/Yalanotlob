@@ -58,7 +58,14 @@ class OrdersController < ApplicationController
       end
       end
 
-    private
+      def destroy
+        @order.destroy
+        respond_to do |format|
+          format.html { redirect_to "/orders", notice: 'Order was successfully Cancelled.' }
+          format.json { head :no_content }
+        end
+      end
+      private
 
         def set_order
              @order = Order.find(params[:id])

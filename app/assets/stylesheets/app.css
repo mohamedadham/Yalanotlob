@@ -25,3 +25,25 @@
 .row{
     width: 100%;
 }
+#friends{
+    margin-top: 20px;
+    margin: 5px;
+    padding: 10px;
+}
+.friend{
+    margin: 2px;
+}
+.group{
+    width: 50vw;
+    display: flex;
+    align-items: center;    
+}
+.group p{
+    width: 30%;
+}
+.group a{
+    margin: 5px;
+}
+.col-sm{
+    width: 50% !important;
+}

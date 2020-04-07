@@ -4,15 +4,17 @@
   <%= link_to "order", main_app.order_path(notification.user) %> 
   <span> 
    ( 
+  <% if notification.second_target != nil %>
   <%=
    if notification.second_target.status == "accepted" || notification.second_target.status == "rejected"
   notification.second_target.status
     end
     %> 
+  <% end %>
      )
     </span>
 
-
+   <% if notification.second_target != nil %>
   <% unless  notification.second_target.status === "accepted" || notification.second_target.status === "rejected" %>
     
     <%= form_tag(main_app.invitation_path(notification.second_target.id), :method => "patch") do |f| %>
@@ -24,4 +26,5 @@
     
     <% end %>
   <% end %>
+   <% end %>
 </div>

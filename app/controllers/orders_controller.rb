@@ -41,7 +41,9 @@ class OrdersController < ApplicationController
           @notice = "Order is finsihed."
         end
         if params[:todo] == "cancel"   
-          @order.status="Canceled"
+          @order.status="Canceled"          
+          @order.invitations.each { |invitation| invitation.destroy }
+          @order.ordersDetails.each { |orderDetails| orderDetails.destroy }
           @notice = 'Order was canceled.' 
         end
         respond_to do |format|
@@ -58,7 +60,8 @@ class OrdersController < ApplicationController
       end
       end
 
-    private
+    
+      private
 
         def set_order
              @order = Order.find(params[:id])

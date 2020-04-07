@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
 
     def create
         users = params['id'];
+        groups = params['groups']
+
         @order = Order.new;
         @order.user_id = current_user.id;
         @order.order_for = params['order_for'];
@@ -15,12 +17,18 @@ class OrdersController < ApplicationController
         fileName = upload_image params[:order]
 
         if(fileName)
-            @order.menu_image = fileName
+          @order.menu_image = fileName
         end
 
         if(@order.save())
           if(users != nil)
             users.each { |user| @order.invitations.create([{ user_id: user }]) }
+          elsif(groups != nil)
+            groups.each { |group|
+              @group = Group.find(group)
+              members = @group.group_members
+              members.each { |member| @order.invitations.create([{ user_id: member.user_id }]) }
+            }
           end
         end
         

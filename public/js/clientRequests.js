@@ -25,7 +25,11 @@ function filterFunction() {
                     let card = document.createElement('div');
                     card.setAttribute('class', `card w-50 ${a.getAttribute('id')}`);
                     let img = document.createElement('img');
-                    img.setAttribute('src', '/assets/images/user.png');
+                    if(data.type == "friend"){
+                        img.setAttribute('src', '/assets/images/user.png');
+                    }else{
+                        img.setAttribute('src', '/assets/images/group.png');
+                    }
                     img.setAttribute('class', 'card-img-top');
                     img.setAttribute('alt', '...');
                     let card_body = document.createElement('div');
@@ -38,13 +42,19 @@ function filterFunction() {
                     btn.innerHTML = 'Remove';
                     let hidden = document.createElement('input');
                     hidden.setAttribute('type', 'hidden');
-                    hidden.setAttribute('name', 'id[]');
+                    if(data.type == "friend"){
+                        hidden.setAttribute('name', 'id[]');
+                    }else{
+                        hidden.setAttribute('name', 'groups[]');
+                    }
+
                     hidden.value = a.getAttribute('id');
 
                     card_body.append(h5);
                     card_body.append(btn);
                     card_body.append(hidden);
 
+                    
                     card.append(img);
                     card.append(card_body);
 

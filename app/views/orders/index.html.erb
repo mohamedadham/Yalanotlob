@@ -1,4 +1,5 @@
 <%if @orders.any? || @invitations.any?%>
+<h2>My Orders</h2>
 <div class="table-container">
   <table class="table table-striped h5">
     <thead>
@@ -50,7 +51,7 @@
   </div>
 <% else %>
 <div class="center">
-    <h1>No orders</h1>
+    <h2>No orders</h2>
     </div>
 <% end %>
 

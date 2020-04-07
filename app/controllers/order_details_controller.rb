@@ -35,6 +35,7 @@ class OrderDetailsController < ApplicationController
 
         return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
     end
+    
     def show
         $orderId = params[:id]
         redirect_to new_order_detail_path

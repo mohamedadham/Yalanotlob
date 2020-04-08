@@ -37,8 +37,8 @@ class OrdersController < ApplicationController
     end
 
     def index
-        @invitations= Invitation.where(:user_id => current_user.id, :status => "accepted")        
-        @orders = Order.where(:user_id => current_user.id)
+        @invitations= Invitation.where(:user_id => current_user.id, :status => "accepted").order('id DESC' )        
+        @orders = Order.where(:user_id => current_user.id).order('id DESC' )  
     end
 
     def update

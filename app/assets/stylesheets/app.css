@@ -2,7 +2,7 @@
     overflow-x: scroll;
     overflow-y: scroll;
     height: 80vh;
-    margin-top: 5vh;
+    margin-top: 2vh;
     margin-bottom: 2vh;
 }
 .center{
@@ -69,5 +69,8 @@ table th{
 }
 .left{
     text-align: left;
+}
+.orders-headline{
+    margin-top: 25px;
 }
 

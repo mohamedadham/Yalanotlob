@@ -17,7 +17,7 @@ function filterFunction() {
             a.setAttribute("id", data.message[i].id);
             a.addEventListener("click", () => {
                 let added = document.getElementsByClassName(`card w-50 ${a.getAttribute('id')}`)[0];
-
+                let add = true;
 
                 if(added){
                     added.remove();
@@ -43,9 +43,29 @@ function filterFunction() {
                     let hidden = document.createElement('input');
                     hidden.setAttribute('type', 'hidden');
                     if(data.type == "friend"){
-                        hidden.setAttribute('name', 'id[]');
+                        groupsAdded = document.getElementsByClassName('groups[]');
+                        
+                        if(groupsAdded.length > 0){
+                            add = false;
+                            $('.errorMsg').html('<li id="last" class="alert alert-danger" role="alert"><b>You can not add friends and groups together</b></li>');
+                            $(".alert").fadeOut(7000);
+                        }else{
+                            hidden.setAttribute('name', 'id[]');
+                            hidden.setAttribute('class', 'id[]');
+                        }
+                    
                     }else{
-                        hidden.setAttribute('name', 'groups[]');
+                        idsAdded = document.getElementsByClassName('id[]');
+
+                        if(idsAdded.length > 0){
+                            add = false;
+                            $('.errorMsg').html('<li id="last" class="alert alert-danger" role="alert"><b>You can not add friends and groups together</b></li>');
+                            $(".alert").fadeOut(7000);
+                        }else{
+                            hidden.setAttribute('name', 'groups[]');
+                            hidden.setAttribute('class', 'groups[]');
+                        }
+                       
                     }
 
                     hidden.value = a.getAttribute('id');
@@ -57,13 +77,15 @@ function filterFunction() {
                     
                     card.append(img);
                     card.append(card_body);
-
-                    invited.append(card);
-                    a.remove();
-
-                    btn.addEventListener('click', () => {
-                        card.remove();
-                    });
+                    if(add){
+                        invited.append(card);
+                        a.remove();
+    
+                        btn.addEventListener('click', () => {
+                            card.remove();
+                        });
+                    }
+                   
                 }
             });
             results.append(a);

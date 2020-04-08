@@ -9,7 +9,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content:space-between;
+    justify-content:space-evenly;
+    height: 90vh;
+}
+.centering{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:center;
     height: 90vh;
 }
 .edit-headline{
@@ -59,5 +66,8 @@ table th{
 .action-btns{
     display: flex;
     justify-content: space-between;
+}
+.left{
+    text-align: left;
 }
 

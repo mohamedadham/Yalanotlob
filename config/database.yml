@@ -10,8 +10,8 @@ default: &default
   timeout: 5000
   database: yalanotlob
   host: 127.0.0.1
-  username: dalia
-  password: 123
+  username: root
+  password: 
   encoding: utf8
   # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # timeout: 5000

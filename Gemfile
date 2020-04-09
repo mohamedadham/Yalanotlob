@@ -59,3 +59,5 @@ gem 'sassc-rails', '>= 2.1.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'notifications', '~> 0.6.0'
 gem 'jquery-rails'
+gem 'omniauth-facebook'
+gem "koala", "~> 1.10.0rc"

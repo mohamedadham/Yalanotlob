@@ -7,9 +7,11 @@
   </ul>
 </div>
 <% end %>
-<% if flash[:error] %>
-    <div class="alert alert-success" role="alert"><%=flash[:error]%></div>
-<% end %>
+<div class="errorMsg">
+    <% if flash[:error] %>
+        <div class="alert alert-success" role="alert"><%=flash[:error]%></div>
+    <% end %>
+</div>
 <div class="container center">
 <%= form_for Order.new, url: orders_path, :multipart => true, local: true do |form| %>
 <div class="row">

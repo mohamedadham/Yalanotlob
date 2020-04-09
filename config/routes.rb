@@ -8,11 +8,14 @@ Rails.application.routes.draw do
   mount Notifications::Engine => "/notifications"
   resources :invitations
   resources :group_members
-  resources :order_details, :except => [:index]
-  resources :orders, :except => [:show, :edit]
+  resources :order_details
+  resources :orders, :except => [:edit]
   resources :friends
   resources :groups
   resources :users
+  get 'auth/facebook', as: "auth_provider"
+  get 'auth/facebook/callback', to: 'users#login'
+
   root :to => "home#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

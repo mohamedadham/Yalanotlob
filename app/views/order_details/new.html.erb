@@ -1,5 +1,12 @@
 
-<h2> Order Details</h2> 
+<h2> Order Details</h2>
+  <% if flash[:error]%>
+      <div class="alert alert-danger">
+        <li>
+            <%= flash[:error] %>
+        </li>
+      </div>
+  <%else%>
   <% if @allCount != 0%> 
     <h5><span class="badge badge-primary badge-pill"><%= @allCount%></span> Friends Invited</h5>
     <ul>

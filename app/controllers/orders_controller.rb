@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
 
     def create
         users = params['id'];
+        groups = params['groups']
+
         @order = Order.new;
         @order.user_id = current_user.id;
         @order.order_for = params['order_for'];
@@ -15,12 +17,18 @@ class OrdersController < ApplicationController
         fileName = upload_image params[:order]
 
         if(fileName)
-            @order.menu_image = fileName
+          @order.menu_image = fileName
         end
 
         if(@order.save())
           if(users != nil)
             users.each { |user| @order.invitations.create([{ user_id: user }]) }
+          elsif(groups != nil)
+            groups.each { |group|
+              @group = Group.find(group)
+              members = @group.group_members
+              members.each { |member| @order.invitations.create([{ user_id: member.user_id }]) }
+            }
           end
         end
         
@@ -29,8 +37,8 @@ class OrdersController < ApplicationController
     end
 
     def index
-        @invitations= Invitation.where(:user_id => current_user.id, :status => "accepted")        
-        @orders = Order.where(:user_id => current_user.id)
+        @invitations= Invitation.where(:user_id => current_user.id, :status => "accepted").order('id DESC' )        
+        @orders = Order.where(:user_id => current_user.id).order('id DESC' )  
     end
 
     def update
@@ -59,7 +67,13 @@ class OrdersController < ApplicationController
         format.html { redirect_to "/orders",  notice: "Can not update the order" }
       end
       end
-
+    def show
+          @order = Order.find(params[:id])
+          @invited = Invitation.find_by(order_id: params[:id], user_id: current_user.id)
+          if @order.user_id != current_user.id && @invited.nil?
+            flash[:error] = "You can't view current order"
+          end
+      end
     
       private
 
@@ -71,4 +85,5 @@ class OrdersController < ApplicationController
             params.permit(:id)            
         end
     
-end
+ 
+ end

@@ -10,21 +10,25 @@ class FriendsController < ApplicationController
             msg = { :status => "ok", :message => friends, :type => "friend" }
         end
         
-        render :json => msg # don't do msg.to_json
+        render :json => msg
     end
 
     def searchByMail
         query = params['input'];
         sql = "Select * from users where email like '%#{query}%' AND id != #{current_user.id} AND id NOT IN (select friend_id from friends where user_id = #{current_user.id})"
         friends = ActiveRecord::Base.connection.execute(sql)
-        # friends = User.joins(:followers).where('friends.user_id != ?', current_user.id).where.not(id: current_user.id);
         msg = { :status => "ok", :message => friends }
-        render :json => msg # don't do msg.to_json
+        render :json => msg 
     end
 
     def new
         @friend = Friend.new
-        @friends = User.joins(:followers).where('friends.user_id = ?', current_user.id)
+        @friends = User.joins(:followers).where('friends.user_id = ?', current_user.id).to_a
+        @following = User.joins(:following).where('friends.friend_id = ?', current_user.id)
+
+        @following.each { |friend|
+            @friends.push friend
+        }
     end
 
     def create

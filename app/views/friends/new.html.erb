@@ -10,8 +10,8 @@
         <% end %>
         <div id="myDropdown" class="d-block dropdown-content show row" style="display: block">
             <%= form_for Friend.new, url: friends_path, local: true do |form| %>
-                <input name="email" type="text" placeholder="Your friend email..." id="myInput" onkeyup="searchByMail()" style="width: 62rem">
-                <%= form.submit type:'submit', class:'btn btn-primary', value: "Add friend"%>
+                <input name="email" type="text" placeholder="Your friend email..." id="myInput" onkeyup="searchByMail()" style="width: 90%">
+                <%= form.submit type:'submit', class:'btn btn-primary', value: "Add friend", style: "margin: 0px"%>
             <%end%>
             <div id="results">
             </div>

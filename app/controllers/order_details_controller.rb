@@ -1,25 +1,8 @@
 class OrderDetailsController < ApplicationController
-    # def index
-    #     @ordersDetails = OrderDetail.where(order_id: $orderId, user_id: current_user.id)
-
-    #     @acceptedUsers = []
-    #     Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
-    #         @acceptedUsers << invitation.user 
-    #     end        
-    #     @allUsers = []
-    #     Invitation.where(order_id: $orderId).find_each do |invitation|
-    #         @allUsers << invitation.user
-    #     end    
     
-    #     @acceptedCount = @acceptedUsers.count
-    #     @allCount = @allUsers.count
-
-    #     return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
-    # end
-
     def get_details
         @ordersDetails = OrderDetail.where(order_id: $orderId, user_id: current_user.id)
-
+  
         @acceptedUsers = []
         Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
             @acceptedUsers << invitation.user 
@@ -37,6 +20,7 @@ class OrderDetailsController < ApplicationController
     
     def show
         $orderId = params[:id]
+        $order = Order.find($orderId)
         redirect_to new_order_detail_path
     end
 

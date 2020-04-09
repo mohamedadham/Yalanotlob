@@ -63,21 +63,23 @@
 <% end %>
 
 <%# Add New Details to Order %>
-<%= form_for(@orderDetails,  url:@orderDetails) do |f| %>
-    <div class="form-group">
-      <%= f.text_field(:item, placeholder: "Item....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-      <%= f.text_field(:amount, placeholder: "Amount....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-      <%= f.text_field(:price, placeholder: "price....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-        <%= f.text_area(:comment,placeholder: "Any Comments?", rows: 5, class: "form-control") %>
-    </div>
-    <%= submit_tag( "Add", class: "btn btn-success btn-block") %>
-<% end %>
+<% if $order.status != "Finished" %>
+  <%= form_for(@orderDetails,  url:@orderDetails) do |f| %>
+      <div class="form-group">
+        <%= f.text_field(:item, placeholder: "Item....", class: "form-control" ) %>
+      </div>
+      <div class="form-group">
+        <%= f.text_field(:amount, placeholder: "Amount....", class: "form-control" ) %>
+      </div>
+      <div class="form-group">
+        <%= f.text_field(:price, placeholder: "price....", class: "form-control" ) %>
+      </div>
+      <div class="form-group">
+          <%= f.text_area(:comment,placeholder: "Any Comments?", rows: 5, class: "form-control") %>
+      </div>
+      <%= submit_tag( "Add", class: "btn btn-success btn-block") %>
+  <% end %>
+<% end %>  
 <br>
 
 

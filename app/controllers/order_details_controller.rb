@@ -27,13 +27,13 @@ class OrderDetailsController < ApplicationController
     def new
         get_details()
         @order = Order.find_by(user_id: current_user.id, id: $orderId).nil?
+        @orderDetails = OrderDetail.new
         unless @acceptedUsers.include?(current_user) && @allUsers.include?(current_user)
             if @order
                 flash[:error] = "You are not allowed to view this order_details"
             end
         end
 
-        @orderDetails = OrderDetail.new
 
     end
 

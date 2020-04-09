@@ -6,16 +6,24 @@ class OrderDetailsController < ApplicationController
         @acceptedUsers = []
         Invitation.where(order_id: $orderId, status: "accepted").find_each do |invitation|
             @acceptedUsers << invitation.user 
-        end        
+        end
+
         @allUsers = []
+        @allInvitations = []
         Invitation.where(order_id: $orderId).find_each do |invitation|
+            @allInvitations << invitation
             @allUsers << invitation.user
         end    
     
         @acceptedCount = @acceptedUsers.count
         @allCount = @allUsers.count
 
-        return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers
+        @userOrder = false
+        if $order.user_id == current_user.id
+            @userOrder = true
+        end    
+
+        return @ordersDetails, @acceptedCount, @acceptedUsers, @allCount, @allUsers, @allInvitations, @userOrder
     end
     
     def show
@@ -33,8 +41,6 @@ class OrderDetailsController < ApplicationController
                 flash[:error] = "You are not allowed to view this order_details"
             end
         end
-
-
     end
 
     def create
@@ -52,7 +58,7 @@ class OrderDetailsController < ApplicationController
         else    
             get_details()
             render :new
-        end    
+        end
     end
 
     def destroy

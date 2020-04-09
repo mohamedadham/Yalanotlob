@@ -10,23 +10,30 @@ class InvitationsController < ApplicationController
     if params[:commit] == "Accept"   
       @invitation.status="accepted"
       @notice = 'Invitation was successfully accepted.' 
-    if params[:commit] == "Reject"   
-      @invitation.status="rejected"
-      @notice = 'Invitation was rejected.' 
-    end
+      if params[:commit] == "Reject"   
+        @invitation.status="rejected"
+        @notice = 'Invitation was rejected.' 
+      end
 
-    respond_to do |format|
-      if @invitation.update(invitations_params)
-        format.html { redirect_to notifications_path, notice: @notice}
-        format.json { render :show, status: :ok, location: @notification }
-      else
-        format.html { render :edit }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @invitation.update(invitations_params)
+          format.html { redirect_to notifications_path, notice: @notice}
+          format.json { render :show, status: :ok, location: @notification }
+        else
+          format.html { render :edit }
+          format.json { render json: @notification.errors, status: :unprocessable_entity }
+        end
       end
     end
-    
- end
-end
+  end
+
+  def destroy
+    @invitation = Invitation.find(params[:id])
+    @invitation.delete
+    redirect_to new_order_detail_path
+  end
+
+
  private
 
  def set_invitation

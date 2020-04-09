@@ -68,7 +68,11 @@ class OrdersController < ApplicationController
       end
       end
     def show
-            
+          @order = Order.find(params[:id])
+          @invited = Invitation.find_by(order_id: params[:id], user_id: current_user.id)
+          if @order.user_id != current_user.id && @invited.nil?
+            flash[:error] = "You can't view current order"
+          end
       end
     
       private

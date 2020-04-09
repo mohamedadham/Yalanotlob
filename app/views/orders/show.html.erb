@@ -1,26 +1,30 @@
 <%if @order%>
-<div class="center">
-  <table class="table table-striped h5">
-    <thead>
-      <tr>
-        <th>Meal</th>
-        <th>Restaurant</th>
-        <th>Status</th>
-        <th> Menu</th>
-        
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-    
-        <tr>
-          <td><%= @order.order_for %></td>
-          <td><%= @order.restaurant_name %></td>         
-          <td><%= @order.status %> </td>
-          <td><%= image_tag("/uploads/#{@order.menu_image}") %> </td>
-          
-        </tr>
-  
-    <% end %>
+  <% if flash[:error]%>
+      <div class="alert alert-danger">
+        <li>
+            <%= flash[:error] %>
+        </li>
+      </div>
+  <%else%>
+    <div class="center">
+      <table class="table table-striped h5">
+        <thead>
+          <tr>
+            <th>Meal</th>
+            <th>Restaurant</th>
+            <th>Status</th>
+            <th> Menu</th>
+            
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @order.order_for %></td>
+            <td><%= @order.restaurant_name %></td>         
+            <td><%= @order.status %> </td>
+            <td><%= image_tag("/uploads/#{@order.menu_image}") %> </td>
+          </tr>
+        </tbody>
+  <% end %>
+<% end %>

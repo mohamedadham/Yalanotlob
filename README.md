@@ -36,11 +36,11 @@ A step by step that tell you how to get a development env running.
 
 ## Authors
 
-  [Dalia Matter](https://github.com/DaliaMatter)
-  [Kareem Saeed](https://github.com/KareemMorsy30)
-  [Nouran Yehia](https://github.com/Nouran-yehia)
-  [Mohamed Adham](https://github.com/mohamedadham)
-  [Mohamed Mostafa](https://github.com/MohamadFeeshar)
+  1. [Dalia Matter](https://github.com/DaliaMatter)
+  2. [Kareem Saeed](https://github.com/KareemMorsy30)
+  3. [Nouran Yehia](https://github.com/Nouran-yehia)
+  4. [Mohamed Adham](https://github.com/mohamedadham)
+  5. [Mohamed Mostafa](https://github.com/MohamadFeeshar)
 
 
 

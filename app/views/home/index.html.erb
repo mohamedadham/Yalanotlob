@@ -16,7 +16,11 @@
 </div>
 <div class="col-md-6" >
 <h2> Latest Friends Activity</h2>
-
+   <% @activities.each do |activity| %>
+      <div>
+      <%= activity.order.user.name  %> made a <%= link_to activity.order.order_for , main_app.new_order_detail_path(activity.order)  %> order
 </div>
+      <% end %>
+            </div>
 </div>
 </div>

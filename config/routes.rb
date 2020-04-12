@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/friends/search/:input', to: 'friends#search'
   get '/friends/search-by-mail/:input', to: 'friends#searchByMail'
   get 'invitations/update'
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   get 'invitation/update'
   mount Notifications::Engine => "/notifications"
   resources :invitations

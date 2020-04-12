@@ -300,4 +300,6 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, Rails.application.credentials.fetch(:google_api_public),
   Rails.application.credentials.fetch(:google_api_secret)
   
+  config.omniauth :facebook, Rails.application.credentials.fetch(:facebook_api_public),
+  Rails.application.credentials.fetch(:facebook_api_secret)
 end

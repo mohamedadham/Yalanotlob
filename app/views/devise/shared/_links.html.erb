@@ -19,7 +19,12 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
-  <% end %>
+<div class="actions">
+<%= image_tag("/google-icon.png", :style =>'width:40px; height:40px;' ) %>
+<%= link_to "Sign in with Google", "auth/google_oauth2" , class:"btn-google" %>
+</div>
+<div class="actions">
+<%= image_tag("/facebook.png", :style =>'width:40px; height:40px;') %>
+<%= link_to "Sign in with FaceBook", "auth/facebook" , class:"btn-facebook" %>
+</div>
 <% end %>

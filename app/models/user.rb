@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: %i[google_oauth2]
+         :omniauthable, omniauth_providers: %i[google_oauth2 facebook]
 
     has_many :groups, :class_name => 'Group', :foreign_key => 'user_id'
     has_many :groupMember, :class_name => 'GroupMember', :foreign_key => 'user_id'
@@ -19,7 +19,7 @@ class User < ApplicationRecord
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
-        user.name = auth.info.nickname
+        user.name = auth.info.name
       end
     end
 

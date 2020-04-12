@@ -48,34 +48,50 @@ class OrderDetailsController < ApplicationController
             if @order
                 flash[:error] = "You are not allowed to view this order_details"
             end
+        else
+            @orderDetails = OrderDetail.new
         end
 
-        @orderDetails = OrderDetail.new
+
 
     end
 
     def create
-        @orderDetails = OrderDetail.new
-        @orderDetails.order_id = $orderId
-        @orderDetails.user_id = current_user.id
-        @orderDetails.item = params[:order_detail][:item]
-        @orderDetails.amount = params[:order_detail][:amount]
-        @orderDetails.price = params[:order_detail][:price]
-        @orderDetails.comment = params[:order_detail][:comment]
- 
-        if(@orderDetails.save)
-            get_details()
-            redirect_to new_order_detail_path 
-        else    
-            get_details()
-            render :new
-        end    
+        get_details()
+        @order = Order.find_by(user_id: current_user.id, id: $orderId).nil?
+        unless @acceptedUsers.include?(current_user) && @allUsers.include?(current_user)
+            if @order
+                flash[:error] = "You are not allowed to add details to this order"
+            end
+        else
+            @orderDetails = OrderDetail.new
+            @orderDetails.order_id = $orderId
+            @orderDetails.user_id = current_user.id
+            @orderDetails.item = params[:order_detail][:item]
+            @orderDetails.amount = params[:order_detail][:amount]
+            @orderDetails.price = params[:order_detail][:price]
+            @orderDetails.comment = params[:order_detail][:comment]
+    
+            if(@orderDetails.save)
+                get_details()
+                redirect_to new_order_detail_path 
+            else    
+                get_details()
+                render :new
+            end
+        end
     end
 
     def destroy
-        @orderDetails = OrderDetail.find(params[:id])
-        @orderDetails.delete
-        redirect_to new_order_detail_path
+        @auth_user = OrderDetail.find_by(id: params[:id], user_id: current_user.id)
+        unless @auth_user.nil?
+            @orderDetails = OrderDetail.find(params[:id])
+            @orderDetails.delete
+            redirect_to new_order_detail_path
+        else
+            flash[:error] = "you aren't allowed to delete this detial"
+            redirect_to new_order_detail_path
+        end
     end
 
     private

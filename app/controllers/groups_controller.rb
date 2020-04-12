@@ -34,11 +34,13 @@ class GroupsController < ApplicationController
 
     def destroy
         @group = Group.find_by(id: params[:id], user_id: current_user.id)
-        @group.destroy
-        if @group.destroyed
+        if @group
+            @group.destroy
             redirect_to :groups
         else
             flash[:group_error] = "You can't delete this group"
             redirect_to :groups
+        end
+        
     end
 end

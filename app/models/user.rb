@@ -14,9 +14,4 @@ class User < ApplicationRecord
     has_many :orderDetail, :class_name => 'OrderDetail', :foreign_key => 'user_id'
     has_many :invitations, :class_name => 'Invitation', :foreign_key => 'user_id'
 
-    def self.koala(auth)
-      access_token = auth['token']
-      facebook = Koala::Facebook::API.new(access_token)
-      facebook.get_object("me?fields=name,picture")
-      end
 end

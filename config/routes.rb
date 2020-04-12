@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   mount Notifications::Engine => "/notifications"
   resources :invitations
   resources :group_members
-  resources :order_details
+  resources :order_details, :except => [:index]
   resources :orders, :except => [:edit]
   resources :friends
   resources :groups

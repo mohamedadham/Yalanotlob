@@ -33,10 +33,27 @@ class FriendsController < ApplicationController
 
     def create
         @user = User.where("email = ?", params['email']).first
+
+        alreadyFollower = Friend.where("user_id = ?", current_user.id).where("friend_id = ?", @user.id).first
+        alreadyFollowing = Friend.where("user_id = ?", @user.id).where("friend_id = ?", current_user.id).first
+        puts alreadyFollower
+        puts alreadyFollowing
+        if alreadyFollower != nil || alreadyFollowing != nil
+            message = "You already are friends"
+            redirect_to "/friends/new", :flash => { :error => message }
+            return
+        end
+
         @friend = Friend.new
         @friend.user_id = current_user.id
         if @user != nil
-            @friend.friend_id = @user.id
+            if(current_user.id != @user.id)
+                @friend.friend_id = @user.id
+            else
+                message = "You can not add yourself as a friend!"
+                redirect_to "/friends/new", :flash => { :error => message }
+                return
+            end
         end
         
         if(@friend.save)
@@ -51,7 +68,16 @@ class FriendsController < ApplicationController
 
     def destroy
         @friend = Friend.where("user_id = ?", current_user.id).where("friend_id = ?", params[:id]).first
-        @friend.destroy
+
+        if(@friend != nil)
+            @friend.destroy
+        end
+
+        @friend = Friend.where("user_id = ?", params[:id]).where("friend_id = ?", current_user.id).first
+
+        if(@friend != nil)
+            @friend.destroy
+        end
 
         message = "Unfriended successfully"
         redirect_to "/friends/new", :flash => { :success => message }

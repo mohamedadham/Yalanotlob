@@ -60,7 +60,7 @@ td img{
     
 }
 
-table th{
+table th, td{
     text-align: center;
 }
 .action-btns{

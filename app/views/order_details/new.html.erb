@@ -7,84 +7,86 @@
         </li>
       </div>
   <%else%>
-  <% if @allCount != 0%> 
-    <h5><span class="badge badge-primary badge-pill"><%= @allCount%></span> Friends Invited</h5>
-    <ul>
-      <% @allUsers.each do |user| %>
-        <li><%= user.name%> 
-            <button type="button" class="btn btn-danger btn-sm">X</button>
-        </li>
-      <% end %>
-    </ul>
-    <h5><span class="badge badge-primary badge-pill"><%= @acceptedCount%></span> Friends Joined</h5>
-    <ul>
-      <% if @acceptedCount != 0 %>
-        <% @acceptedUsers.each do |user|%>
+    <% if @allCount != 0%> 
+      <h5><span class="badge badge-primary badge-pill"><%= @allCount%></span> Friends Invited</h5>
+      <ul>
+        <% index = 0 %>
+        <% @allUsers.each do |user| %>
           <li><%= user.name%>
-            <button type="button" class="btn btn-danger btn-sm">X</button>
+              <% if @userOrder %>
+                <%= link_to 'remove', @allInvitations[index], class: "btn btn-danger btn-sm", method: :delete%>
+              <% end %>
           </li>
+          <% index += 1%>
         <% end %>
-      <% end %>
-    </ul>
-  <% end%>
-
-
-<h2> Add new detail</h2> 
-<%# List all Order Details %>
-<% if @ordersDetails.any? %>
-  <table class="table table-striped h5">
-    <thead>
-      <tr>
-        <th scope="col">Item</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Price</th>
-        <th scope="col">Comment</th>
-        <th scope="col">Delete</th>
-
-      </tr>
-    </thead>
-      <tbody>
-        <% @ordersDetails.each do |order| %>
-          <tr>
-            <th scope="row"><%= order.item %></th>
-            <td><%= order.amount %></td>
-            <td><%= order.price %></td>
-            <td><%= order.comment %></td>
-            <td> <%= link_to 'delete', order, class: "btn btn-danger", method: :delete%> </td>
-          </tr>
+      </ul>
+      <h5><span class="badge badge-primary badge-pill"><%= @acceptedCount%></span> Friends Joined</h5>
+      <ul>
+        <% if @acceptedCount != 0 %>
+          <% @acceptedUsers.each do |user|%>
+            <li><%= user.name%></li>
+          <% end %>
         <% end %>
-      </tbody>
-  </table>
-<% else %>
-  
-<% end %>
+      </ul>
+    <% end%>
 
-<% if @orderDetails.errors.any? %>
-    <div class="alert alert-danger">
-        <ul>
-            <% @orderDetails.errors.full_messages.each do |message|%>
-                <li> <%= message%> </li>
-            <% end %>
-        </ul>
-    </div>
-<% end %>
+  <h2> Add new detail</h2> 
+  <%# List all Order Details %>
+  <% if @ordersDetails.any? %>
+    <table class="table table-striped h5">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Price</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% @ordersDetails.each do |order| %>
+            <tr>
+              <th scope="row"><%= order.item %></th>
+              <td><%= order.amount %></td>
+              <td><%= order.price %></td>
+              <td><%= order.comment %></td>
+              <td> <%= link_to 'delete', order, class: "btn btn-danger", method: :delete%> </td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  <% else %>
+    
+  <% end %>
 
-<%# Add New Details to Order %>
-<%= form_for(@orderDetails,  url:@orderDetails) do |f| %>
-    <div class="form-group">
-      <%= f.text_field(:item, placeholder: "Item....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-      <%= f.text_field(:amount, placeholder: "Amount....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-      <%= f.text_field(:price, placeholder: "price....", class: "form-control" ) %>
-    </div>
-    <div class="form-group">
-        <%= f.text_area(:comment,placeholder: "Any Comments?", rows: 5, class: "form-control") %>
-    </div>
-    <%= submit_tag( "Add", class: "btn btn-success btn-block") %>
-<% end %>
+  <% if @orderDetails.errors.any? %>
+      <div class="alert alert-danger">
+          <ul>
+              <% @orderDetails.errors.full_messages.each do |message|%>
+                  <li> <%= message%> </li>
+              <% end %>
+          </ul>
+      </div>
+  <% end %>
+
+  <%# Add New Details to Order %>
+  <% if $order.status != "Finished" && $order.status != "Canceled" %>
+    <%= form_for(@orderDetails,  url:@orderDetails) do |f| %>
+        <div class="form-group">
+          <%= f.text_field(:item, placeholder: "Item....", class: "form-control" ) %>
+        </div>
+        <div class="form-group">
+          <%= f.text_field(:amount, placeholder: "Amount....", class: "form-control" ) %>
+        </div>
+        <div class="form-group">
+          <%= f.text_field(:price, placeholder: "price....", class: "form-control" ) %>
+        </div>
+        <div class="form-group">
+            <%= f.text_area(:comment,placeholder: "Any Comments?", rows: 5, class: "form-control") %>
+        </div>
+        <%= submit_tag( "Add", class: "btn btn-success btn-block") %>
+    <% end %>
+  <% end %>  
 <% end %>
 <br>
 

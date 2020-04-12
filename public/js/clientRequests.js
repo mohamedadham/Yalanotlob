@@ -110,9 +110,9 @@ function searchByMail(){
             a.innerHTML = data.message[i][1];
             a.setAttribute("class", "result");
             a.setAttribute("id", data.message[i][0]);
-            inputVal = data.message[i][4];
+            a.setAttribute("data-email", data.message[i][4]);
             a.addEventListener("click", () => {
-                input.value = inputVal;
+                input.value = a.getAttribute("data-email");
                 results.setAttribute("class", "d-none");
             })
             results.append(a);

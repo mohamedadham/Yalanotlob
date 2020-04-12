@@ -9,9 +9,14 @@ class GroupMembersController < ApplicationController
         else
             @group_member = GroupMember.find_by(user_id: @user.id, group_id: params[:group_id])
             if @group_member.nil?
-                @group_member = GroupMember.create(user_id: @user.id, group_id: params[:group_id])
-                unless @group_member.persisted?
-                    flash[:group_member_errors] = @group_member.errors.full_messages
+                @friend = Friend.find_by(user_id: current_user.id, friend_id: @user.id)
+                unless @friend.nil?
+                    @group_member = GroupMember.create(user_id: @user.id, group_id: params[:group_id])
+                    unless @group_member.persisted?
+                        flash[:group_member_errors] = @group_member.errors.full_messages
+                    end
+                else
+                    flash[:group_member_errors] = ["User isn't a friend"]
                 end
             else
                 flash[:group_member_errors] = ["User already exist in the group"]
@@ -21,7 +26,7 @@ class GroupMembersController < ApplicationController
     end
 
     def destroy
-        @group = Group.find_by(group_id: params[:id], user_id: current_user.id)
+        @group = Group.find_by(id: params[:id], user_id: current_user.id)
         unless @group.nil?
             @members = GroupMember.where(group_id: params[:id], user_id: params[:user_id])
             @members.destroy_all
@@ -29,5 +34,7 @@ class GroupMembersController < ApplicationController
         else
             flash[:group_error] = "You can't delete this group"
             redirect_to :groups
+        end
     end
+
 end

@@ -48,12 +48,9 @@ class OrderDetailsController < ApplicationController
             if @order
                 flash[:error] = "You are not allowed to view this order_details"
             end
-        else
-            @orderDetails = OrderDetail.new
         end
-
-
-
+        @orderDetails = OrderDetail.new
+        
     end
 
     def create

@@ -21,8 +21,13 @@ class GroupMembersController < ApplicationController
     end
 
     def destroy
-        @members = GroupMember.where(group_id: params[:id], user_id: params[:user_id])
-        @members.destroy_all
-        redirect_to group_url(params[:id])
+        @group = Group.find_by(group_id: params[:id], user_id: current_user.id)
+        unless @group.nil?
+            @members = GroupMember.where(group_id: params[:id], user_id: params[:user_id])
+            @members.destroy_all
+            redirect_to group_url(params[:id])
+        else
+            flash[:group_error] = "You can't delete this group"
+            redirect_to :groups
     end
 end

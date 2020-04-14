@@ -51,6 +51,22 @@ class OrderDetailsController < ApplicationController
         unless @acceptedUsers.include?(current_user) && @allUsers.include?(current_user)
             if @order
                 flash[:error] = "You are not allowed to add details to this order"
+            else
+                @orderDetails = OrderDetail.new
+                @orderDetails.order_id = $orderId
+                @orderDetails.user_id = current_user.id
+                @orderDetails.item = params[:order_detail][:item]
+                @orderDetails.amount = params[:order_detail][:amount]
+                @orderDetails.price = params[:order_detail][:price]
+                @orderDetails.comment = params[:order_detail][:comment]
+        
+                if(@orderDetails.save)
+                    get_details()
+                    redirect_to new_order_detail_path 
+                else    
+                    get_details()
+                    render :new
+                end
             end
         else
             @orderDetails = OrderDetail.new

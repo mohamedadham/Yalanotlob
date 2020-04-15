@@ -34,6 +34,12 @@ class FriendsController < ApplicationController
     def create
         @user = User.where("email = ?", params['email']).first
 
+        if(@user == nil)
+            message = "Please select user first"
+            redirect_to "/friends/new", :flash => { :error => message }
+            return
+        end
+
         alreadyFollower = Friend.where("user_id = ?", current_user.id).where("friend_id = ?", @user.id).first
         alreadyFollowing = Friend.where("user_id = ?", @user.id).where("friend_id = ?", current_user.id).first
         puts alreadyFollower

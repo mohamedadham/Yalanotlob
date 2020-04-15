@@ -9,7 +9,7 @@
 <% end %>
 <div class="errorMsg">
     <% if flash[:error] %>
-        <div class="alert alert-success" role="alert"><%=flash[:error]%></div>
+        <div <% if flash[:type] == "success" %> class="alert alert-success" <% else %> class="alert alert-danger" <% end %> role="alert"><%=flash[:error]%></div>
     <% end %>
 </div>
 <div class="container center">

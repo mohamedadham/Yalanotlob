@@ -30,10 +30,15 @@ class OrdersController < ApplicationController
               members.each { |member| @order.invitations.create([{ user_id: member.user_id }]) }
             }
           end
+
+          message = "Order submitted successfully"
+          type = "success"
+        else
+          message = "Please fill in required fields"
+          type = "error"
         end
         
-        message = "Order submitted successfully"
-        redirect_to "/orders/new", :flash => { :error => message }
+        redirect_to "/orders/new", :flash => { :error => message, :type => type }
     end
 
     def index

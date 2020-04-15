@@ -25,8 +25,18 @@ A step by step that tell you how to get a development env running.
 1- Clone the project
 2- Create Database "yalanotlob"
 3- Configure database configuration in database.yml with your username and password
-4- $ rails db:migrate
-5- $ rails s
+4- For Google and Facebook APIs"
+  a- Delete credentials.yml in config
+  b- Run EDITOR="code --wait" rails credentials:edit
+  c- write the Google and Facebook APIs' keys 
+    google_api_public: 
+    google_api_secret:
+    facebook_api_public:
+    facebook_api_secret:
+  d- Save then close the file 
+5- $ rails db:migrate
+6- run bundle install
+5- run rails s
 ```
 
 
